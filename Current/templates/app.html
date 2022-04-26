@@ -9,18 +9,52 @@
 <style>
     h1{
         background-image: url('/static/img/headerbg.png');
-        width: 500px;
+        text-align: center;
     }
     body{
+        border: 1px solid;
+    }
+    .on{
+        transition-duration: 0.4s;
+        border-radius: 60%;
+    }
+    .on:hover{
+        background-color: green;
+        color: white;
+    }
+    html{
+        margin: 110px;
         text-align: center;
+        background-color: lightblue;
+    }
+    body{
+        height: 500px;
+        width: 500px;
     }
 </style>
 <body>
     <h1>Hue Light Changer</h1>
-    <form method = "post" action="/">
-        <input type="submit" value="On" name="On"/>
-        <input type="submit" value = 'Off' name = "Off"/>
-        <input type="range" min="0" max="100" class="slider" name="Brightness"/>
+    <form method = "post" action="/" id="buttons">
+        <input type="submit" value="On" name='On'/>
+        <input type="submit" value = 'Off' name='Off'/>
+    </form>
+
+    <form method = 'post' action="{{ url_for('uInput') }}">
+        <input type="range" min="1" max="254" class="slider" name="brightness" id='slider'/>
+        <div id="slideAMT"></div>
+        <input type="color" name="color"/>
+        <input type="submit"/>
     </form>
 </body>
+<script>
+    function updateSlider(slideAMT)
+    {
+        var slider = document.getElementById('slideAMT');
+        slider.innerHTML = slideAMT;
+    }
+
+    slide.onchange = function() {
+        slider.innerHTML = this.value;
+    }
+</script>
 </html>
