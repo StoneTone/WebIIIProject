@@ -45,6 +45,11 @@
         <input type="color" name="color"/>
         <input type="submit"/>
     </form>
+
+    <form method = 'post' action="{{ url_for('disco') }}">
+        <input type = 'submit' value="Disco Mode!" name="disco"/>
+        <input type = 'submit' value="Stop" name="stop"/>
+    </form>
 </body>
 <script>
     function updateSlider(slideAMT)
@@ -56,5 +61,7 @@
     slide.onchange = function() {
         slider.innerHTML = this.value;
     }
+
+    
 </script>
 </html>

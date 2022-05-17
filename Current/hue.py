@@ -37,15 +37,48 @@ def uInput():
             brit = request.form['brightness']
             strip.brightness = int(brit)
         if request.form.get('color'):
-            #red = pow((red + 0.055) / (1.0 + 0.055), 2.4) if red > 0.04045 else (red / 12.92)
-            #green = pow((green + 0.055) / (1.0 + 0.055), 2.4) if green > 0.04045 else (green / 12.92)
-            #blue =  pow((blue + 0.055) / (1.0 + 0.055), 2.4) if blue > 0.04045 else (blue / 12.92)
             color = request.form.get('color')
             RGB = ImageColor.getcolor(color, "RGB")
-            
-            
-    
+            #hex color variables
+            redH = RGB[0]
+            greenH = RGB[1]
+            blueH = RGB[2]
+            CheckForZero = redH + greenH + blueH
+            if(CheckForZero == 0):
+                strip.on = False
+            else:
+                strip.on = True
+                def rgb_to_xy(red, green, blue):
+                    #gamma
+                    red = pow((red + 0.055) / (1.0 + 0.055), 2.4) if red > 0.04045 else (red / 12.92)
+                    green = pow((green + 0.055) / (1.0 + 0.055), 2.4) if green > 0.04045 else (green / 12.92)
+                    blue =  pow((blue + 0.055) / (1.0 + 0.055), 2.4) if blue > 0.04045 else (blue / 12.92)
+                    #formula to convert
+                    x = red * 0.649926 + green * 0.103455 + blue * 0.197109
+                    y = red * 0.234327 + green * 0.743075 + blue * 0.022598
+                    z = green * 0.053077 + blue * 1.035763
+                    #convert xyz to xy
+                    x = x / (x + y + z)
+                    y = y / (x + y + z)
+                    return [x,y]
+                xy = rgb_to_xy(redH,greenH,blueH)
+                strip.xy = xy
     return render_template('app.html')
+
+@app.route('/disco', methods=['POST', 'GET'])
+def disco():
+    if request.method == 'POST':
+        if request.form.get('disco'):
+            x = True
+            while x is True:
+                strip.hue = r.randint(1,16000)
+                sleep(0.20)
+            
+                if request.form.get('Stop'):
+                    x = False
+                    
+
+    return render_template('app.html')        
 
 if __name__ == "__main__":
     app.run()
