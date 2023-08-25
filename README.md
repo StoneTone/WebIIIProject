@@ -23,9 +23,8 @@ Have you ever wanted to adjust the lighting in your house without leaving your s
 
 ## Installation
 
-1. Clone the repository: `git clone https://github.com/your-username/home-lights-control-backend.git`
-2. Navigate to the project directory: `cd home-lights-control-backend`
-3. Install dependencies: `pip install -r requirements.txt`
+1. Clone the repository: `git clone https://github.com/StoneTone/WebIIIProject`
+2. Navigate to the project directory: `cd WebIIIProject`
 
 ## Usage
 
